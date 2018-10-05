@@ -23,25 +23,29 @@ export default {
 	props: ['artist'],
 	data() {
 		return {
+			dataTemp: [],
 			dataSong: []
 		}
 	},
 	created () {
-		this.conecction()
+		this.connection()
 	},
 	watch: {
-		/* order(){
-			const data = dataSong;
-		} */
-		
+	/* 	dataSong: function() {
+			this.dataSong = this.dataOrder
+			} */
 	},
 	computed:{
-
+/* 		dataOrder: {
+			get: function() {
+			  return this.order()
+			}
+		} */
 	},
 	methods:{
-	  conecction() {	
+	  connection() {	
 			axios
-			.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.artist}&limit=3&api_key=ff73fed1db5752673e6039c8b6064fac&format=json`)
+			.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.artist}&limit=10&api_key=ff73fed1db5752673e6039c8b6064fac&format=json`)
 			.then(response => {
 				const temp = []
 				temp.push(response.data.topalbums.album)
@@ -52,11 +56,8 @@ export default {
 			})		
 		},
 		like(id, option) {
-			/* this.$root.$emit('song-like', { id:id }) */
-			let listArtist = this.dataSong;
-				
-			const h = listArtist.map(data => {		
-				//console.log('def')	
+			let listArtist = this.dataSong;				
+			const songLike = listArtist.map(data => {
 				if(data.mbid === id){
 					if(data.hasOwnProperty('like')) {
 						if(option === true){
@@ -67,15 +68,17 @@ export default {
 							}
 						}
 					}else{
-						Object.defineProperty(data,'like',{value:1, writable:true})
+						Object.defineProperty(data,'like',{value:1, writable:true, enumerable:true})
 					} 
+				}else{
+					data.like?data.like:Object.defineProperty(data,'like',{value:0, writable:true, enumerable:true})
 				}
 				return data
-			}) 
-			this.dataSong = h
-			console.log(h);
-		
-		}
+			})
+			this.dataSong = songLike.sort((before, after) => {				
+				return after.like - before.like 
+			})
+		}		
 	}
 }
 </script>

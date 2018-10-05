@@ -1,7 +1,7 @@
 <template>
 	<ul>
 		<div v-for="item in dataArtist" :key="item.mbid">
-			<img :src="item.image[2][image]" alt="">
+			<img :src="item.image[2]['#text']" alt="">
 			<label id="song">{{item.name}}</label>
 			<div>
 				<list-song :artist = item.name></list-song>
@@ -22,8 +22,7 @@ export default {
 		components: {'list-song':song},
   data() {
     return {
-			dataArtist: [],
-			image: '#text',
+			dataArtist: []
 			/* total: 0 */
 		};
 	},
