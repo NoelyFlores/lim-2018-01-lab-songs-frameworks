@@ -1,14 +1,12 @@
 <template>
-	<ul class="collapsible">
-		<li v-for="item in dataSong" :key="item.mbid">
-			<div class="collapsible-header">
-      	  {{item.name}}
-				<span class="badge">
-					<i @click="like(item.mbid, true)" class="material-icons like">favorite</i>
-					<i @click="like(item.mbid, false)" class="material-icons down">thumb_down</i>
-					<label for="">{{item.like?item.like:0}}</label>
+	<ul class="list-group">
+		<li v-for="item in dataSong" :key="item.mbid" class="list-group-item d-flex justify-content-between align-items-center">
+		  	  {{item.name}}
+				<span class="badge ">
+					<i @click="playcount(item.mbid, true)" class="material-icons playcount">favorite</i>
+					<i @click="playcount(item.mbid, false)" class="material-icons down">thumb_down</i>
+					<label for="">{{item.playcount?item.playcount:0}}</label>
 				</span>
-			</div>
 		</li>
 	</ul>
 </template>
@@ -23,7 +21,6 @@ export default {
 	props: ['artist'],
 	data() {
 		return {
-			dataTemp: [],
 			dataSong: []
 		}
 	},
@@ -31,16 +28,9 @@ export default {
 		this.connection()
 	},
 	watch: {
-	/* 	dataSong: function() {
-			this.dataSong = this.dataOrder
-			} */
 	},
 	computed:{
-/* 		dataOrder: {
-			get: function() {
-			  return this.order()
-			}
-		} */
+
 	},
 	methods:{
 	  connection() {	
@@ -55,40 +45,71 @@ export default {
 				console.log(e);				
 			})		
 		},
-		like(id, option) {
+		playcount(id, option) {
 			let listArtist = this.dataSong;				
-			const songLike = listArtist.map(data => {
+			const songplaycount = listArtist.map(data => {
 				if(data.mbid === id){
-					if(data.hasOwnProperty('like')) {
+					if(data.hasOwnProperty('playcount')) {
 						if(option === true){
-							data.like += 1;	
+							data.playcount += 1;	
 						} else {
-							if(data.like > 0) {
-								data.like -= 1							
+							if(data.playcount > 0) {
+								data.playcount -= 1							
 							}
 						}
-					}else{
-						Object.defineProperty(data,'like',{value:1, writable:true, enumerable:true})
 					} 
-				}else{
-					data.like?data.like:Object.defineProperty(data,'like',{value:0, writable:true, enumerable:true})
 				}
 				return data
 			})
-			this.dataSong = songLike.sort((before, after) => {				
-				return after.like - before.like 
+			this.dataSong = songplaycount.sort((before, after) => {				
+				return after.playcount - before.playcount 
 			})
 		}		
 	}
 }
 </script>
 <style>
-.like{
+.playcount{
 	color:#8bc34a;
-	cursor: pointer;
 }
 .down{
 	color: #00BCD4;
+	}
+.down, .playcount{
 	cursor: pointer;
+	padding: 0em .2em;
+}
+.carousel-control-next, .carousel-control-prev {
+    position: absolute;
+    top: -70% !important;
+	width: 25% !important;
+}
+.list-group-item {
+    background: #171717;
+    border-color: #9e9e9e1c;
+    font-weight: 100;
+		color: #fff;		
+    font-family: segoe UI;		
+    padding: .5rem 1rem !important;
+		text-align: left
+}
+.list-group{
+		margin: 0% 25%;
+	}
+@media (max-width: 1200px) {
+	.list-group{
+		margin: 0% 20%;
+	}
+	.carousel-control-next, .carousel-control-prev{
+		width: 20% !important;
+	}
+}
+@media (max-width: 480px) {
+	.list-group{
+		margin: 0%;
+	}
+	.carousel-control-next, .carousel-control-prev{
+		width: 15% !important;
+	}
 }
 </style>

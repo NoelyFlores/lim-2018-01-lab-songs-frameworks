@@ -1,16 +1,20 @@
 <template>
   <div id="app">
-    <h4 id="title">Ranking Song</h4>
+    <input @dblclick="search()" v-model="artist" type="text" placeholder="Search you artist">
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return {
+      artist: ''
+    }
+  }
 }
 </script>
-
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -25,13 +29,39 @@ export default {
   color: #CDDC39;
   font-family: cursive;
 }
+input{
+    background: #fff !important;
+    width: 50% !important;
+    border: none !important;
+    padding: .4em 1em !important;
+    border-radius: 1em !important;
+    margin: 5px auto !important;
+    outline: none;
+
+}
+.d-block, .w-100{
+  background: no-repeat center;
+  background-size: contain;  
+  box-shadow: none;
+  border-radius: 0% !important;
+  box-shadow: none;
+    min-height: 600px;
+}
+img{
+border-radius: 100%;
+padding: 5px;
+margin-top: 10px;
+box-shadow: 0 0 20px #d2e7f0;
+}
 @media (max-width: 480px){
   img{
     display: flex;
     justify-content: center;
     margin: auto;
-    padding: .3em 0em;
     
+  }
+  input{
+    width: 90% !important;
   }
 }
 
