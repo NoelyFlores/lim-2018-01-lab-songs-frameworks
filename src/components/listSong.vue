@@ -35,7 +35,7 @@ export default {
 	methods:{
 	  connection() {	
 			axios
-			.get(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.artist}&limit=10&api_key=ff73fed1db5752673e6039c8b6064fac&format=json`)
+			.get(`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.artist}&limit=10&api_key=ff73fed1db5752673e6039c8b6064fac&format=json`)
 			.then(response => {
 				const temp = []
 				temp.push(response.data.topalbums.album)

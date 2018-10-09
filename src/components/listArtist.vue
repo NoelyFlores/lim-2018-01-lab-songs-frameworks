@@ -51,7 +51,7 @@ export default {
   methods: {
 		conecction() {		
 			axios
-			.get('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=spain&limit=5&api_key=ff73fed1db5752673e6039c8b6064fac&format=json')
+			.get('https://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=spain&limit=5&api_key=ff73fed1db5752673e6039c8b6064fac&format=json')
 			.then(response => {
 				const temp = []
 				temp.push(response.data.topartists.artist)
