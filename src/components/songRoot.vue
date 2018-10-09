@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<list-artist></list-artist>
+		<input @keyup.enter="sch()" v-model="txt" type="text" placeholder="Search you artist">
+		<list-artist :searchArtist = search></list-artist>
 	</div>
 </template>
 <script>
@@ -10,7 +11,8 @@ export default {
 	props: [],
 	data() {
 		return {
-
+			search: '',
+			txt: ''
 		}
 	},
 	components: {'list-artist': artist},
@@ -21,10 +23,21 @@ export default {
 
 	},
 	methods:{
-
+		sch(){
+			this.search = this.txt
+		}
 	}
 }
 </script>
 <style>
+.search{
+	display: none;
+}
+@media(max-width: 480px){
+	.search{
+		display: inline;
+		color: #fff;
+	}
+}
 
 </style>

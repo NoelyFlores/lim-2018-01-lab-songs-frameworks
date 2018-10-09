@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <input @dblclick="search()" v-model="artist" type="text" placeholder="Search you artist">
     <router-view/>
   </div>
 </template>
