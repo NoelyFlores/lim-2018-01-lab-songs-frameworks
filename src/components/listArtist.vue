@@ -4,7 +4,7 @@
 		<div class="carousel-item active" v-bind:class="{'active':statePrev}">
 			<div class="one">
 				<h3 class="description">Top Song Ranking</h3>
-				<p>{{messag}}</p>
+				<p>{{message}}</p>
 			</div>      
 		</div>		
 		<div v-for="item in dataArtist" :key="item.mbid" class="carousel-item">
@@ -39,7 +39,7 @@ export default {
     return {
 			dataArtist: [],
 			statePrev:false,
-			messag:''
+			message:''
 		};
 	},
 	created () {
@@ -78,11 +78,7 @@ export default {
 				temp.push(response.data.results.artistmatches.artist)
 				this.dataArtist = temp[0]
 				})
-			.catch((e)=>{
-				this.statePrev = true
-			}
-				
-			)	
+			.catch(this.statePrev = true)	
 			}
 	}
 };
